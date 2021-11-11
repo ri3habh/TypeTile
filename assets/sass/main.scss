@@ -1,0 +1,9 @@
+@import '_variables.scss'; 
+
+body {
+    background-color: $primary-color;
+}
+
+header {
+    @include theme($theme: darkolivegreen);
+}
