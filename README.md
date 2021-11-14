@@ -7,4 +7,4 @@ Jacob
 Alston
 ...
 
-TypeTile game, made in HTML, CSS and JS and maybe react
+TypeTile game, made in HTML, CSS and JS and maybe react.
