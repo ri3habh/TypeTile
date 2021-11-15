@@ -9,6 +9,7 @@ const path = require('path');
 // Requiring ejs-mate
 const ejsMate = require('ejs-mate');
 
+// testing commit
 
 // Express configurations
 // So express can interpret ejs
