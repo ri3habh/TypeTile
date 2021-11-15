@@ -1,0 +1,26 @@
+{
+  "name": "typetile",
+  "version": "1.0.0",
+  "description": "Developers: Rishabh Ighoise Jacob Alston ...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Tavares913: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@github.com/ri3habh/TypeTile.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ri3habh/TypeTile/issues"
+  },
+  "homepage": "https://github.com/ri3habh/TypeTile#readme",
+  "dependencies": {
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12",
+    "path": "^0.12.7"
+  }
+}
