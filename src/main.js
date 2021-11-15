@@ -9,8 +9,6 @@ const path = require('path');
 // Requiring ejs-mate
 const ejsMate = require('ejs-mate');
 
-// testing commit
-
 // Express configurations
 // So express can interpret ejs
 app.set('view engine', 'ejs');
@@ -18,6 +16,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../assets/views'));
 // Will probably come in handy, allows for one to create html partials conveniently
 app.engine('ejs', ejsMate);
+
+// Middleware
+// Sets express to looks for static files in the static directory
+app.use(express.static(path.join(__dirname, '../assets/static')));
 
 // Express is listening on port 2000
 app.listen(2000, () =>
