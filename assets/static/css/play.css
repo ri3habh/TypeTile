@@ -1,0 +1,16 @@
+body {
+  background-color: lightblue;
+}
+p {
+  color: black;
+}
+h1 {
+  background: white;
+  -webkit-box-shadow: 0 0 1px rgba(85, 107, 47, 0.25);
+  box-shadow: 0 0 1px rgba(85, 107, 47, 0.25);
+  color: black;
+}
+button.a-key {
+  position: absolute;
+  top: 500px;
+}
