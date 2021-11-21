@@ -5,6 +5,10 @@ let score = 0;
 const button = document.querySelector('button.a-key');
 button.addEventListener('click', clickA);
 
+window.addEventListener("keydown", function(event) {
+    if (event.key === 'a') clickA();
+})
+
 // Append it to h1
 const h1 = document.querySelector('h1');
 
@@ -16,7 +20,6 @@ const nextLetterInterval = setInterval(() =>
 // Slide it down every 10 milliseconds
 const pIntervalId = setInterval(() =>
 {
-    console.log(currentLetters)
     currentLetters.forEach((p) => slideDown(p));
     if (currentLetters.length > 0 && 600 <= pixelVal(currentLetters[0].style.top))
     {
