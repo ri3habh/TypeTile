@@ -1,7 +1,26 @@
 // All letters on screen
 const currentLetters = [];
 let score = 0;
-let curButtonClicked = document.querySelector('.q-key');
+
+// a class for a key on the keyboard
+class Key
+{
+    constructor(letter) {
+        this.letter = letter;
+        this.clicked = false;
+        this.button = document.querySelector(`.${letter}-key`)
+        this.toggleClicked = () => {
+            this.clicked = !this.clicked
+            this.button.classList.toggle('hover')
+        }
+    }
+}
+
+// generate a list containing all buttons corresponding to the keys of the keyboard
+const letterKeys = Array.from(
+    Array.from({ length: 26 }, (v, i) => String.fromCharCode(97 + i)),
+    (letter) => new Key(letter)
+)
 
 // Will be adding all of the letters onto the screen by appending it to this element
 const h1 = document.querySelector('h1');
@@ -15,14 +34,15 @@ window.addEventListener("keydown", function(event) {
 // Add the keyup event listener to the window
 window.addEventListener("keyup", event =>
 {
-    if (event.key === 'a') curButtonClicked.classList.toggle('hover');
+    // if the key was clicked already, make it back to normal
+    letterKeys.filter(letter => letter.clicked).map(letter => letter.toggleClicked())
 })
 
 // Every second, generate a new letter
 const nextLetterInterval = setInterval(() => 
 {
     generateNewLetter();
-}, 1000);
+}, 800);
 
 // Slide every letter currently on the screen down every 5 milliseconds
 const pIntervalId = setInterval(() =>
@@ -84,19 +104,18 @@ function pixelVal(curYStr)
 // Click a function
 function clickKey(event)
 {
-    switch(event.key)
+    // find the key that was clicked
+    const curButtonClicked = letterKeys.find(key => key.letter === event.key)
+    // make it look like it was clicked
+    curButtonClicked.toggleClicked()
+    // if the key is low enough and the letter of the key was clicked, increment score
+    // and remove the letter from the screen
+    if (450 <= pixelVal(currentLetters[0].style.top)
+        && currentLetters[0].innerText.toLowerCase() === curButtonClicked.letter)
     {
-        case 'a':
-            // Make the a key look clicked
-            curButtonClicked = document.querySelector('.a-key');
-            curButtonClicked.classList.toggle('hover');
-            // Check if it was clicked at right timing, if so, remove the lowest letter
-            if (currentLetters.length > 0 && 450 <= pixelVal(currentLetters[0].style.top))
-            {
-                currentLetters[0].remove();
-                currentLetters.shift();
-                score++;
-                scoreDisplay.innerText = score;
-            }
+        currentLetters[0].remove();
+        currentLetters.shift();
+        score++;
+        scoreDisplay.innerText = score;
     }
 }
