@@ -40,9 +40,11 @@ function generateNewLetter()
 {
     // Create a p and configure it
     const p = document.createElement('p');
-    p.innerText = "A";
+    // produces a random letter between 'A' and 'Z'
+    p.innerText = String.fromCharCode(65 + Math.floor(Math.random() * 26));
     p.style.position = "absolute";
     p.style.top = "50px";
+    // give it a random horizontal position
     p.style.left = `${220 + Math.round(Math.random() * 10) * 100}px`;
 
     // Add the new letter to the screen and add it to the active letters array
