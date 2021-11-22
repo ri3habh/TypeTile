@@ -1,27 +1,35 @@
+// All letters on screen
 const currentLetters = [];
 let score = 0;
+let curButtonClicked = document.querySelector('.q-key');
 
-// Add an event listener to the a button
-const button = document.querySelector('button.a-key');
-button.addEventListener('click', clickA);
+// Will be adding all of the letters onto the screen by appending it to this element
+const h1 = document.querySelector('h1');
+// This is where we'll display the score
+const scoreDisplay = document.querySelector('h2');
 
+// Add the keydown event to the window
 window.addEventListener("keydown", function(event) {
-    if (event.key === 'a') clickA();
+    clickKey(event);
+})
+// Add the keyup event listener to the window
+window.addEventListener("keyup", event =>
+{
+    if (event.key === 'a') curButtonClicked.classList.toggle('hover');
 })
 
-// Append it to h1
-const h1 = document.querySelector('h1');
-
+// Every second, generate a new letter
 const nextLetterInterval = setInterval(() => 
 {
     generateNewLetter();
 }, 1000);
 
-// Slide it down every 10 milliseconds
+// Slide every letter currently on the screen down every 5 milliseconds
 const pIntervalId = setInterval(() =>
 {
     currentLetters.forEach((p) => slideDown(p));
-    if (currentLetters.length > 0 && 600 <= pixelVal(currentLetters[0].style.top))
+    // If there are letters on the screen and the lowest one is less than 600px from the top, remove it and shift the array to the left
+    if (currentLetters.length > 0 && 700 <= pixelVal(currentLetters[0].style.top))
     {
         currentLetters[0].remove();
         currentLetters.shift();
@@ -37,11 +45,12 @@ function generateNewLetter()
     p.style.top = "50px";
     p.style.left = `${220 + Math.round(Math.random() * 10) * 100}px`;
 
+    // Add the new letter to the screen and add it to the active letters array
     h1.append(p);
     currentLetters.push(p);
 }
 
-// Just made these for sliding down
+// Slide elem down by 1px
 function slideDown(elem)
 {
     let curYStr = elem.style.top;
@@ -50,33 +59,42 @@ function slideDown(elem)
     elem.style.top = `${curY}px`;
 }
 
+// Given the pixel value of an element in string form, return the numerical version
 function pixelVal(curYStr)
 {
-    if (typeof parseInt(curYStr.substring(0, 4) == 'number'))
+    let curPix = '';
+    for (let i = 0; i < curYStr.length; i++)
     {
-        return parseInt(curYStr.substring(0, 4));
+        // If the current character is a digit, add it on to curPix; if not, then end the loop
+        if (typeof parseInt(curYStr.substring(i, i + 1)) == 'number')
+        {
+            curPix += curYStr.substring(i, i + 1);
+        }
+        else
+        {
+            break;
+        }
     }
-    else if (typeof parseInt(curYStr.substring(0, 3) == 'number'))
-    {
-        return parseInt(curYStr.substring(0, 3));
-    }
-    else if (typeof parseInt(curYStr.substring(0, 2) == 'number'))
-    {
-        return parseInt(curYStr.substring(0, 2));
-    }
-    else
-    {
-        return parseInt(curYStr.substring(0, 1));
-    }
+    // After looping, return curPix converted to an int
+    return parseInt(curPix);
 }
 
 // Click a function
-function clickA()
+function clickKey(event)
 {
-    if (currentLetters.length > 0 && 450 <= pixelVal(currentLetters[0].style.top))
+    switch(event.key)
     {
-        currentLetters[0].remove();
-        currentLetters.shift();
-        score++;
+        case 'a':
+            // Make the a key look clicked
+            curButtonClicked = document.querySelector('.a-key');
+            curButtonClicked.classList.toggle('hover');
+            // Check if it was clicked at right timing, if so, remove the lowest letter
+            if (currentLetters.length > 0 && 450 <= pixelVal(currentLetters[0].style.top))
+            {
+                currentLetters[0].remove();
+                currentLetters.shift();
+                score++;
+                scoreDisplay.innerText = score;
+            }
     }
 }
