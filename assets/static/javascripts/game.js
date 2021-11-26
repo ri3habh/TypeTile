@@ -65,7 +65,7 @@ function generateNewLetter()
     p.style.position = "absolute";
     p.style.top = "50px";
     // give it a random horizontal position
-    p.style.left = `${220 + Math.round(Math.random() * 10) * 100}px`;
+    p.style.left = `${220 + Math.round(Math.random() * 9) * 100}px`;
 
     // Add the new letter to the screen and add it to the active letters array
     h1.append(p);

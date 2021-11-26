@@ -31,18 +31,13 @@ button.hover {
 
 div.col-1 {
   padding: 0px;
+  width: 100px;
 }
 div.col-3 {
   padding: 0px;
 }
 div.col-4 {
   padding: 0px;
-}
-div.keyrow2 {
-  margin-left: 20px;
-}
-div.keyrow3 {
-  margin-left: 50px;
 }
 div.keyrow4 {
   margin-left: 40px;
@@ -51,7 +46,7 @@ div.letterspace {
   height: 25rem;
 }
 div.keyboard {
-  margin-left: 5rem;
+  margin-left: 170px;
   width: 100%;
 }
 div.container {
