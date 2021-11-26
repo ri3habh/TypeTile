@@ -1,6 +1,14 @@
 // All letters on screen
 const currentLetters = [];
 let score = 0;
+let speed = 3;
+
+// increase speed every 30 seconds
+const nextSpeedInterval = setInterval(() =>
+{
+    speed++;
+    console.log(speed);
+}, 30000)
 
 // a class for a key on the keyboard
 class Key
@@ -11,7 +19,7 @@ class Key
         this.button = document.querySelector(`.${letter}-key`)
         this.toggleClicked = () => {
             this.clicked = !this.clicked
-            this.button.classList.toggle('hover')
+            this.button.classList.toggle('clicked')
         }
     }
 }
@@ -38,7 +46,7 @@ window.addEventListener("keyup", event =>
     letterKeys.filter(letter => letter.clicked).map(letter => letter.toggleClicked())
 })
 
-// Every second, generate a new letter
+// Every 800ms, generate a new letter
 const nextLetterInterval = setInterval(() => 
 {
     generateNewLetter();
@@ -54,7 +62,7 @@ const pIntervalId = setInterval(() =>
         currentLetters[0].remove();
         currentLetters.shift();
     }
-}, 5);
+}, 15);
 
 function generateNewLetter()
 {
@@ -65,19 +73,12 @@ function generateNewLetter()
     p.innerText = randomLetter;
     p.style.position = "absolute";
     p.style.top = "50px";
-    // give it a random horizontal position
-    const col = 'QAZ'.includes(randomLetter) ? 0
-        : 'WSX'.includes(randomLetter) ? 1
-        : 'EDC'.includes(randomLetter) ? 2
-        : 'RFV'.includes(randomLetter) ? 3
-        : 'TGB'.includes(randomLetter) ? 4
-        : 'YHN'.includes(randomLetter) ? 5
-        : 'UJM'.includes(randomLetter) ? 6
-        : 'IK'.includes(randomLetter) ? 7
-        : 'OL'.includes(randomLetter) ? 8
-        : 9;
-
-    p.style.left = `${220 + (100 * col)}px`
+    // find which letter was generated
+    const curButtonClicked = letterKeys.find(key => key.letter === randomLetter.toLowerCase())
+    // find the corresponding button
+    const curButtonObject = document.querySelector(`.${curButtonClicked.letter}-key`)
+    // set the position of the letter based on the buttons position
+    p.style.left = `${curButtonObject.offsetLeft + 40}px`;
 
     // Add the new letter to the screen and add it to the active letters array
     h1.append(p);
@@ -89,7 +90,7 @@ function slideDown(elem)
 {
     let curYStr = elem.style.top;
     let curY = pixelVal(curYStr);
-    curY += 1;
+    curY += speed;
     elem.style.top = `${curY}px`;
 }
 
@@ -109,20 +110,21 @@ function pixelVal(curYStr)
             break;
         }
     }
-    // After looping, return curPix converted to an int
     return parseInt(curPix);
 }
 
-// Click a function
+// Upon a key click
 function clickKey(event)
 {
     // find the key that was clicked
     const curButtonClicked = letterKeys.find(key => key.letter === event.key)
+    const curButtonObject = document.querySelector(`.${curButtonClicked.letter}-key`)
     // make it look like it was clicked
     curButtonClicked.toggleClicked()
-    // if the key is low enough and the letter of the key was clicked, increment score
+    // if you clicked the key and the letter was within about 100px of the center of the button, increment score
     // and remove the letter from the screen
-    if (450 <= pixelVal(currentLetters[0].style.top)
+    if (curButtonObject.offsetTop - 80 <= pixelVal(currentLetters[0].style.top)
+        && pixelVal(currentLetters[0].style.top) <= curButtonObject.offsetTop + 120
         && currentLetters[0].innerText.toLowerCase() === curButtonClicked.letter)
     {
         currentLetters[0].remove();

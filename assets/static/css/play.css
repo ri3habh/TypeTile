@@ -23,7 +23,7 @@ button.a-key {
   background-color: white;
 }
 
-button.hover {
+button.clicked {
   color: white;
   background-color: black;
   transition: 0ms;
@@ -31,7 +31,6 @@ button.hover {
 
 div.col-1 {
   padding: 0px;
-  width: 100px;
 }
 div.col-3 {
   padding: 0px;
@@ -39,18 +38,22 @@ div.col-3 {
 div.col-4 {
   padding: 0px;
 }
+div.keyrow2 {
+  margin-left: 3%;
+}
+div.keyrow3 {
+  margin-left: 5%;
+}
 div.keyrow4 {
-  margin-left: 40px;
+  margin-left: 20%;
 }
 div.letterspace {
   height: 25rem;
 }
 div.keyboard {
-  margin-left: 170px;
-  width: 100%;
+  margin-left: 10%;
 }
 div.container {
-  width: 100%;
   max-width: 1500px;
 }
 main.container {
