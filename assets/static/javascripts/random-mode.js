@@ -2,6 +2,7 @@
 const currentLetters = [];
 let score = 0;
 let speed = 3;
+let lives = 3;
 
 // increase speed every 30 seconds
 const nextSpeedInterval = setInterval(() =>
@@ -33,7 +34,9 @@ const letterKeys = Array.from(
 // Will be adding all of the letters onto the screen by appending it to this element
 const h1 = document.querySelector('h1');
 // This is where we'll display the score
-const scoreDisplay = document.querySelector('h2');
+const scoreDisplay = document.querySelector('.score');
+// lives display
+const livesDisplay = document.querySelector('.lives');
 
 // Add the keydown event to the window
 window.addEventListener("keydown", function(event) {
@@ -61,6 +64,15 @@ const pIntervalId = setInterval(() =>
     {
         currentLetters[0].remove();
         currentLetters.shift();
+        lives--;
+        livesDisplay.innerText = lives;
+        if (lives <= 0)
+        {
+            clearInterval(pIntervalId);
+            clearInterval(nextLetterInterval);
+            clearInterval(nextSpeedInterval);
+            livesDisplay.innerText = "Game Over";
+        }
     }
 }, 15);
 
