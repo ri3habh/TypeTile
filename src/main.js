@@ -43,3 +43,23 @@ app.get('/settings', (req, res) =>
 {
     res.render('settings');
 });
+// Get route for the random letters mode
+app.get('/play/random-letters', (req, res) =>
+{
+    res.render('random-mode');
+});
+// Get route for the normal mode
+app.get('/play/normal', (req, res) =>
+{
+    res.render('normal-mode');
+});
+// Get route for the danger mode
+app.get('/play/danger', (req, res) =>
+{
+    res.render('danger-mode');
+});
+// Get route for the leaderboard
+app.get('/leaderboard', (req, res) =>
+{
+    res.render('leaderboard');
+});
