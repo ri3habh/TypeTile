@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 // Requiring ejs-mate
 const ejsMate = require('ejs-mate');
+const textgen = require('txtgen');
 
 // Express configurations
 // So express can interpret ejs
@@ -46,20 +47,36 @@ app.get('/settings', (req, res) =>
 // Get route for the random letters mode
 app.get('/play/random-letters', (req, res) =>
 {
-    res.render('random-mode');
+    res.render('game-modes/random-mode');
 });
 // Get route for the normal mode
 app.get('/play/normal', (req, res) =>
 {
-    res.render('normal-mode');
+    // Generate 50 random sentences
+    const randSentences = [];
+    for(let i = 0; i < 50; i++)
+    {
+        randSentences.push(textgen.sentence());
+    }
+    res.render('game-modes/normal-mode', { randSentences });
 });
 // Get route for the danger mode
 app.get('/play/danger', (req, res) =>
 {
-    res.render('danger-mode');
+    res.render('game-modes/danger-mode');
 });
 // Get route for the leaderboard
 app.get('/leaderboard', (req, res) =>
 {
     res.render('leaderboard');
 });
+// Route for testing, will delete later
+app.get('/test', (req, res) =>
+{
+    const randSentences = [];
+    for(let i = 0; i < 50; i++)
+    {
+        randSentences.push(textgen.sentence());
+    }
+    res.render('test', { randSentences });
+})

@@ -1,0 +1,1 @@
+console.log(randSentences[0]);

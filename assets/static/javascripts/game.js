@@ -4,6 +4,9 @@ let score = 0;
 let speed = 3;
 let lives = 3;
 
+// Testing that randSentences was passed through, success
+console.log(randSentences[0]);
+
 // increase speed every 30 seconds
 const nextSpeedInterval = setInterval(() =>
 {
