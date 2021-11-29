@@ -4,8 +4,8 @@ let score = 0;
 let speed = 3;
 let lives = 3;
 
-// Testing that randSentences was passed through, success
-console.log(randSentences[0]);
+// make a constant which contains all sentences smushed together
+let allSentences = randSentences.map(s => s.replace(/[^A-Za-z]/g, '').toUpperCase()).join('')
 
 // increase speed every 30 seconds
 const nextSpeedInterval = setInterval(() =>
@@ -84,7 +84,15 @@ function generateNewLetter()
     // Create a p and configure it
     const p = document.createElement('p');
     // produces a random letter between 'A' and 'Z'
-    const randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    let randomLetter
+    if (mode === 'random') {
+        randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    }
+    else {
+        if (!allSentences) allSentences = randSentences.map(s => s.replace(/[^A-Za-z]/g, '').toUpperCase()).join('')
+        randomLetter = allSentences[0];
+        allSentences = allSentences.substring(1);
+    }
     p.innerText = randomLetter;
     p.style.position = "absolute";
     p.style.top = "50px";
