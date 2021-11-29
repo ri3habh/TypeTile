@@ -6,6 +6,7 @@
 <h3 class="lives">3 lives remaining!</h3>
 <%- include('../partials/keyboard-and-letterspace') %>
 <script>
+    const randSentences = <%-JSON.stringify(randSentences) %>;
     const mode = 'random';
 </script>
 <script src='/javascripts/game.js'></script>

@@ -1,12 +1,9 @@
-// Requiring express
+// Requiring express and executing it
 const express = require('express');
-// App is an express object, has all of the methods now
 const app = express();
-// Requiring mongoose
+
 const mongoose = require('mongoose');
-// Requiring path
 const path = require('path');
-// Requiring ejs-mate
 const ejsMate = require('ejs-mate');
 const textgen = require('txtgen');
 
@@ -56,7 +53,7 @@ app.get('/settings', (req, res) =>
 // Get route for the random letters mode
 app.get('/play/random-letters', (req, res) =>
 {
-    res.render('game-modes/random-mode');
+    res.render('game-modes/random-mode', { randSentences: generate50RandomSentences() });
 });
 // Get route for the normal mode
 app.get('/play/normal', (req, res) =>

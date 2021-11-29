@@ -3,6 +3,8 @@ let currentLetters = [];
 let score = 0;
 let speed = 3;
 let lives = 3;
+let totalLetterCount = 0;
+let mistakes = 0;
 
 // make a constant which contains all sentences smushed together
 let currRandIndex = 0
@@ -13,7 +15,6 @@ let currSentenceToShow = ''
 const nextSpeedInterval = setInterval(() =>
 {
     speed++;
-    console.log(speed);
 }, 30000)
 
 function updateSentenceToShow(param = '') {
@@ -95,7 +96,7 @@ function reduceLife() {
         clearInterval(pIntervalId);
         clearInterval(nextLetterInterval);
         clearInterval(nextSpeedInterval);
-        livesDisplay.innerText = "Game Over";
+        livesDisplay.innerText = `Game Over! Accuracy: ${((totalLetterCount - mistakes)/totalLetterCount) * 100}%`;
         currentLetters = [];
     }
 }
@@ -105,11 +106,20 @@ const pIntervalId = setInterval(() =>
 {
     currentLetters.forEach((p) => slideDown(p));
     // If there are letters on the screen and the lowest one is less than 600px from the top, remove it and shift the array to the left
-    if (currentLetters.length > 0 && 700 <= pixelVal(currentLetters[0].style.top))
+    if (currentLetters.length > 0 
+        && 750 <= pixelVal(currentLetters[0].style.top)
+        && !currentLetters[0].classList.contains('red-tile'))
     {
+        totalLetterCount++;
         currentLetters[0].remove();
         currentLetters.shift();
         reduceLife();
+    } else if (currentLetters.length > 0 
+        && 700 <= pixelVal(currentLetters[0].style.top)
+        && currentLetters[0].classList.contains('red-tile')) {
+            currentLetters[0].remove();
+            currentLetters.shift();
+            totalLetterCount++;
     }
 }, 15);
 
@@ -119,6 +129,7 @@ function generateNewLetter()
     const p = document.createElement('p');
     // produces a random letter between 'A' and 'Z'
     let randomLetter
+    let chanceOfRed = Math.floor((Math.random() * 10) + 1)
     if (mode === 'random') {
         randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
     }
@@ -130,12 +141,17 @@ function generateNewLetter()
     p.innerText = randomLetter;
     p.style.position = "absolute";
     p.style.top = "50px";
+    if (chanceOfRed === 1)
+    {
+        p.classList.toggle('red-tile');
+    }
     // find which letter was generated
     const curButtonClicked = letterKeys.find(key => key.letter === randomLetter.toLowerCase())
     // find the corresponding button
     const curButtonObject = document.querySelector(`.${curButtonClicked.letter}-key`)
     // set the position of the letter based on the buttons position
-    p.style.left = `${curButtonObject.offsetLeft + 40}px`;
+    p.style.left = `${(curButtonObject.offsetLeft + curButtonObject.offsetLeft + curButtonObject.offsetWidth)/2 - 13}px`;
+    console.log(curButtonObject.offsetWidth);
 
     // Add the new letter to the screen and add it to the active letters array
     h1.append(p);
@@ -182,14 +198,23 @@ function clickKey(event)
     // and remove the letter from the screen
     if (curButtonObject.offsetTop - 80 <= pixelVal(currentLetters[0].style.top)
         && pixelVal(currentLetters[0].style.top) <= curButtonObject.offsetTop + 120
-        && currentLetters[0].innerText.toLowerCase() === curButtonClicked.letter)
+        && currentLetters[0].innerText.toLowerCase() === curButtonClicked.letter
+        && !currentLetters[0].classList.contains('red-tile'))
     {
         currentLetters[0].remove();
+        totalLetterCount++;
         currentLetters.shift();
         score += 1000 - Math.abs(curButtonObject.offsetTop + 20 - pixelVal(currentLetters[0].style.top));
-        console.log(curButtonObject.offsetTop)
+        scoreDisplay.innerText = `${score} points`;
+    } else if (currentLetters[0].classList.contains('red-tile')){
+        reduceLife();
+        currentLetters[0].remove();
+        mistakes++;
+        totalLetterCount++;
+        currentLetters.shift();
+        score = Math.max(0, score - 1000 - Math.abs(curButtonObject.offsetTop + 20 - pixelVal(currentLetters[0].style.top)));
         scoreDisplay.innerText = `${score} points`;
     } else {
-        reduceLife();
+        mistakes++;
     }
 }

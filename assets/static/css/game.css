@@ -65,7 +65,7 @@ div.keyrow4 {
   margin-left: 20%;
 }
 div.letterspace {
-  height: 25rem;
+  height: 22rem;
 }
 div.keyboard {
   margin-left: 10%;
@@ -75,4 +75,7 @@ div.container {
 }
 main.container {
   max-width: 1500px;
+}
+.red-tile {
+  background: red;
 }
