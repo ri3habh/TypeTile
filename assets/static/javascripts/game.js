@@ -87,6 +87,19 @@ const nextLetterInterval = setInterval(() =>
     generateNewLetter();
 }, 800);
 
+function reduceLife() {
+    lives--;
+    livesDisplay.innerText = `${lives} lives remaining!`;
+    if (lives <= 0)
+    {
+        clearInterval(pIntervalId);
+        clearInterval(nextLetterInterval);
+        clearInterval(nextSpeedInterval);
+        livesDisplay.innerText = "Game Over";
+        currentLetters = [];
+    }
+}
+
 // Slide every letter currently on the screen down every 5 milliseconds
 const pIntervalId = setInterval(() =>
 {
@@ -96,16 +109,7 @@ const pIntervalId = setInterval(() =>
     {
         currentLetters[0].remove();
         currentLetters.shift();
-        lives--;
-        livesDisplay.innerText = `${lives} lives remaining!`;
-        if (lives <= 0)
-        {
-            clearInterval(pIntervalId);
-            clearInterval(nextLetterInterval);
-            clearInterval(nextSpeedInterval);
-            livesDisplay.innerText = "Game Over";
-            currentLetters = [];
-        }
+        reduceLife();
     }
 }, 15);
 
@@ -185,5 +189,7 @@ function clickKey(event)
         score += 1000 - Math.abs(curButtonObject.offsetTop + 20 - pixelVal(currentLetters[0].style.top));
         console.log(curButtonObject.offsetTop)
         scoreDisplay.innerText = `${score} points`;
+    } else {
+        reduceLife();
     }
 }
