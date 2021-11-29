@@ -10,6 +10,15 @@ const path = require('path');
 const ejsMate = require('ejs-mate');
 const textgen = require('txtgen');
 
+const generate50RandomSentences = () => {
+    const randSentences = [];
+    for (let i = 0; i < 50; i++)
+    {
+        randSentences.push(textgen.sentence());
+    }
+    return randSentences
+}
+
 // Express configurations
 // So express can interpret ejs
 app.set('view engine', 'ejs');
@@ -52,18 +61,12 @@ app.get('/play/random-letters', (req, res) =>
 // Get route for the normal mode
 app.get('/play/normal', (req, res) =>
 {
-    // Generate 50 random sentences
-    const randSentences = [];
-    for(let i = 0; i < 50; i++)
-    {
-        randSentences.push(textgen.sentence());
-    }
-    res.render('game-modes/normal-mode', { randSentences });
+    res.render('game-modes/normal-mode', { randSentences: generate50RandomSentences() });
 });
 // Get route for the danger mode
 app.get('/play/danger', (req, res) =>
 {
-    res.render('game-modes/danger-mode');
+    res.render('game-modes/danger-mode', { randSentences: generate50RandomSentences() });
 });
 // Get route for the leaderboard
 app.get('/leaderboard', (req, res) =>
@@ -73,10 +76,5 @@ app.get('/leaderboard', (req, res) =>
 // Route for testing, will delete later
 app.get('/test', (req, res) =>
 {
-    const randSentences = [];
-    for(let i = 0; i < 50; i++)
-    {
-        randSentences.push(textgen.sentence());
-    }
-    res.render('test', { randSentences });
+    res.render('test', { randSentences: generate50RandomSentences() });
 })
