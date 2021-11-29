@@ -17,9 +17,15 @@ h1 {
   font-size: 144;
 }
 
-.lives, .sentence {
+.lives {
   text-align: center;
   font-size: 96;
+}
+
+.sentence {
+  text-align: center;
+  font-size: 72;
+  font-style: italic;
 }
 
 button.btn {
