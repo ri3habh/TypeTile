@@ -5,7 +5,9 @@ let speed = 3;
 let lives = 3;
 
 // make a constant which contains all sentences smushed together
-let allSentences = randSentences.map(s => s.replace(/[^A-Za-z]/g, '').toUpperCase()).join('')
+let currRandIndex = 0
+let currRandSentence = randSentences[currRandIndex]
+let currSentenceToShow = ''
 
 // increase speed every 30 seconds
 const nextSpeedInterval = setInterval(() =>
@@ -13,6 +15,33 @@ const nextSpeedInterval = setInterval(() =>
     speed++;
     console.log(speed);
 }, 30000)
+
+function updateSentenceToShow(param = '') {
+    currSentenceToShow = currSentenceToShow.length === 15
+        ? currSentenceToShow.substring(1) + currRandSentence[0] + param
+        : currSentenceToShow + currRandSentence[0] + param
+    const sentenceElement = document.querySelector('.sentence');
+    sentenceElement.innerText = currSentenceToShow;
+}
+
+function getNextRandSentence() {
+    currRandIndex = currRandIndex === (randSentences.length - 1)
+        ? 0 : currRandIndex + 1
+    currRandSentence = randSentences[currRandIndex]
+}
+
+function getNextLetterFromRandSentences() {
+    while(!currRandSentence[0].match(/^[A-Za-z]+$/)) {
+        if (currRandSentence.length === 1) {
+            updateSentenceToShow(' ');
+            getNextRandSentence()
+        } else {
+            updateSentenceToShow();
+            currRandSentence = currRandSentence.substring(1)
+        }
+    }
+    updateSentenceToShow();
+}
 
 // a class for a key on the keyboard
 class Key
@@ -89,9 +118,9 @@ function generateNewLetter()
         randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
     }
     else {
-        if (!allSentences) allSentences = randSentences.map(s => s.replace(/[^A-Za-z]/g, '').toUpperCase()).join('')
-        randomLetter = allSentences[0];
-        allSentences = allSentences.substring(1);
+        getNextLetterFromRandSentences()
+        randomLetter = currRandSentence[0].toUpperCase();
+        currRandSentence = currRandSentence.substring(1);
     }
     p.innerText = randomLetter;
     p.style.position = "absolute";

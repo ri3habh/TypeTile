@@ -17,7 +17,7 @@ h1 {
   font-size: 144;
 }
 
-.lives {
+.lives, .sentence {
   text-align: center;
   font-size: 96;
 }
