@@ -152,7 +152,8 @@ function clickKey(event)
     {
         currentLetters[0].remove();
         currentLetters.shift();
-        score++;
+        score += 1000 - Math.abs(curButtonObject.offsetTop + 20 - pixelVal(currentLetters[0].style.top));
+        console.log(curButtonObject.offsetTop)
         scoreDisplay.innerText = `${score} points`;
     }
 }
