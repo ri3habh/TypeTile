@@ -1,5 +1,5 @@
 // All letters on screen
-const currentLetters = [];
+let currentLetters = [];
 let score = 0;
 let speed = 3;
 let lives = 3;
@@ -104,6 +104,7 @@ const pIntervalId = setInterval(() =>
             clearInterval(nextLetterInterval);
             clearInterval(nextSpeedInterval);
             livesDisplay.innerText = "Game Over";
+            currentLetters = [];
         }
     }
 }, 15);
