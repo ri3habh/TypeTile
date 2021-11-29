@@ -68,7 +68,7 @@ const pIntervalId = setInterval(() =>
         currentLetters[0].remove();
         currentLetters.shift();
         lives--;
-        livesDisplay.innerText = lives;
+        livesDisplay.innerText = `${lives} lives remaining!`;
         if (lives <= 0)
         {
             clearInterval(pIntervalId);
@@ -145,6 +145,6 @@ function clickKey(event)
         currentLetters[0].remove();
         currentLetters.shift();
         score++;
-        scoreDisplay.innerText = score;
+        scoreDisplay.innerText = `${score} points`;
     }
 }
