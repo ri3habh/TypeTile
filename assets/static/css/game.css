@@ -77,5 +77,5 @@ main.container {
   max-width: 1500px;
 }
 .red-tile {
-  background: red;
+  color: red;
 }

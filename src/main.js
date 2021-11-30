@@ -13,7 +13,7 @@ const generate50RandomSentences = () => {
     {
         randSentences.push(textgen.sentence());
     }
-    return randSentences
+    return randSentences;
 }
 
 // Express configurations
@@ -38,7 +38,7 @@ app.listen(2000, () =>
 // Get route for the home page
 app.get('/', (req, res) =>
 {
-    res.render('index');
+    res.render('home');
 });
 // Get route for the play game page
 app.get('/play', (req, res) =>
@@ -50,28 +50,14 @@ app.get('/settings', (req, res) =>
 {
     res.render('settings');
 });
-// Get route for the random letters mode
-app.get('/play/random-letters', (req, res) =>
-{
-    res.render('game-modes/random-mode', { randSentences: generate50RandomSentences() });
-});
-// Get route for the normal mode
-app.get('/play/normal', (req, res) =>
-{
-    res.render('game-modes/normal-mode', { randSentences: generate50RandomSentences() });
-});
-// Get route for the danger mode
-app.get('/play/danger', (req, res) =>
-{
-    res.render('game-modes/danger-mode', { randSentences: generate50RandomSentences() });
-});
-// Get route for the leaderboard
+ // Get route for the leaderboard
 app.get('/leaderboard', (req, res) =>
 {
     res.render('leaderboard');
 });
-// Route for testing, will delete later
-app.get('/test', (req, res) =>
+// Get route for all game modes
+app.get('/game', (req, res) =>
 {
-    res.render('test', { randSentences: generate50RandomSentences() });
-})
+    const { mode, poison } = req.query;
+    res.render('game', { randSentences: generate50RandomSentences(), mode, poison });
+});
