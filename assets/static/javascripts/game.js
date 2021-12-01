@@ -143,7 +143,9 @@ function reduceLife() {
         clearInterval(pIntervalId);
         clearInterval(nextLetterInterval);
         clearInterval(nextSpeedInterval);
-        livesDisplay.innerText = `Game Over! Accuracy: ${(Math.max(((totalLetterCount - mistakes)/totalLetterCount) * 100), 0)}%`;
+        console.log(totalLetterCount)
+        console.log(mistakes)
+        livesDisplay.innerText = `Game Over! Accuracy: ${Math.max((((totalLetterCount - mistakes)/totalLetterCount) * 100), 0)}%`;
         currentLetters = [];
     }
 }
@@ -218,6 +220,7 @@ function clickKey(event)
 {
     // Find the key that was clicked
     const curButtonClicked = letterKeys.find(key => key.letter === event.key);
+    const curButtonObject = document.querySelector(`.${curButtonClicked.letter}-key`)
     // Make it look like it was clicked
     curButtonClicked.toggleClicked();
     // If you clicked the right key and the letter was within about 100px of the center of the button, increment score
