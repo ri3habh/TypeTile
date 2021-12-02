@@ -1,2 +1,2 @@
-# Secret Stuff
-# more secret stuff
+node_modules
+.env
