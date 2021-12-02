@@ -12,6 +12,8 @@ const PassportLocal = require('passport-local');
 const userRoutes = require('../assets/routes/users');
 const User = require('../assets/models/user');
 const ExpressError = require('../assets/error-handling/ExpressError');
+const { isLoggedIn } = require('../assets/middleware');
+const asyncWrapper = require('../assets/error-handling/asyncWrapper');
 
 // If not deployed to heroku, make environment variables accessible
 if (process.env.NODE_ENV !== 'production')
@@ -55,7 +57,6 @@ app.use((req, res, next) =>
     res.locals.currentUser = req.user;
     next();
 });
-app.use('/', userRoutes);
 
 
 // Connect to mongodb
@@ -85,26 +86,31 @@ app.get('/', (req, res) =>
     res.render('home');
 });
 // Get route for the play game page
-app.get('/play', (req, res) =>
+app.get('/play', isLoggedIn, (req, res) =>
 {
     res.render('play');
-})
+});
 // Get route for the settings page
 app.get('/settings', (req, res) =>
 {
     res.render('settings');
 });
  // Get route for the leaderboard
-app.get('/leaderboard', (req, res) =>
+app.get('/leaderboard', asyncWrapper(async (req, res) =>
 {
-    res.render('leaderboard');
-});
+    const allUsers = await User.find({});
+    quickSortByScore(allUsers);
+    const topTenUsers = allUsers.slice(0, 9);
+    res.render('leaderboard', { topTenUsers });
+}));
 // Get route for all game modes
 app.get('/game', (req, res) =>
 {
     const { mode, poison } = req.query;
     res.render('game', { randSentences: generateRandomSentences(100), mode, poison });
 });
+// All user routes
+app.use('/', userRoutes);
 
 // If you didn't hit any of the routes, generate a 404 error
 app.all('*', (req, res, next) =>
@@ -131,3 +137,15 @@ const generateRandomSentences = (n) => {
     }
     return randSentences;
 };
+const quickSortByScore = users =>
+{
+    if (!users.length)
+    {
+        return [];
+    }
+    let pivot = users.highScore;
+    let less = users.filter(elem => { elem.highScore < pivot });
+    let greater = users.filter(elem => { elem.highScore >= pivot });
+
+    return [].concat(quickSortByScore(less), pivot, quickSortByScore(greater));
+}

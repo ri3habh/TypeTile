@@ -17,7 +17,7 @@ const register = async (req, res, next) =>
     {
         const { username, email, password } = req.body;
 
-        const user = new User({email, username});
+        const user = new User({email, username, scores: [], highScore: 0});
         // We have .register() from passport, will save the user to mongo using mongoose
         const registeredUser = await User.register(user, password);
         // We have .login() from passport, will insert the user into the session
@@ -48,9 +48,34 @@ const logout = (req, res) =>
     req.flash('success', 'Goodbye');
     res.redirect('/');
 };
+// Update a user
+const updateUser = async (req, res) =>
+{
+    const id = req.params.id;
+    const score = req.body.score;
+    const user = await User.findById(id);
+    console.log(score);
+    user.scores.push(req.body.score);
+    if (score > user.highScore)
+    {
+        user.highScore = score;
+    }
+    await user.save();
+    req.flash('success', 'Successfully updated scores');
+    res.redirect('/play');
+};
+// Render the profile page
+const renderProfilePage = async (req, res) =>
+{
+    const id = req.params.id;
+    const user = await User.findById(id);
+    res.render('users/profile', { user });
+}
 
 module.exports.renderRegForm = renderRegForm;
 module.exports.renderLoginForm = renderLoginForm;
 module.exports.register = register;
 module.exports.loginMessage = loginMessage;
 module.exports.logout = logout;
+module.exports.updateUser = updateUser;
+module.exports.renderProfilePage = renderProfilePage;

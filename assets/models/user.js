@@ -13,7 +13,8 @@ const UserSchema = new Schema(
             required: true,
             unique: true
         },
-        scores: [Number]
+        scores: [Number],
+        highScore: Number
     }
 );
 

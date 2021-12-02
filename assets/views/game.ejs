@@ -6,9 +6,11 @@
 <h3 class="lives">3  lives remaining!</h3>
 <h3 class="sentence">---</h3>
 <%- include('./partials/keyboard-and-letterspace') %>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     const randSentences = <%-JSON.stringify(randSentences)%>;
     const mode = "<%-mode%>";
     const poison = "<%-poison%>";
+    const currentUser = <%-JSON.stringify(currentUser)%>
 </script>
 <script src='/javascripts/game.js'></script>

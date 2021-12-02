@@ -1,2 +1,6 @@
 <% layout('layouts/boilerplate') %>
-<h1>Leaderboard here</h1>
+<h1>Leaderboard:</h1>
+<% for(user of topTenUsers) { %>
+    <a href="/<%=user._id%>"><%= user.username %>: <%= user.highScore %></a>
+    <br>
+<% } %>

@@ -147,6 +147,25 @@ function reduceLife() {
         console.log(mistakes)
         livesDisplay.innerText = `Game Over! Accuracy: ${Math.max((((totalLetterCount - mistakes)/totalLetterCount) * 100), 0)}%`;
         currentLetters = [];
+        let formData = new FormData();
+        formData.append('score', `${score}`);
+
+        // Display a button to go back to the home page
+        const backForm = document.createElement('form');
+        backForm.setAttribute('action', `/${currentUser._id}`);
+        backForm.setAttribute('method', 'post');
+        const backButton = document.createElement('button');
+        backButton.setAttribute('class', 'btn btn-primary');
+        backButton.innerText = 'Back home';
+        const scoreInput = document.createElement('input');
+        scoreInput.setAttribute('type', 'hidden');
+        scoreInput.setAttribute('value', `${score}`);
+        scoreInput.setAttribute('name', 'score');
+
+        backForm.append(scoreInput);
+        backForm.append(backButton);
+        start.append(backForm);
+
     }
 }
 // Generate a new letter
