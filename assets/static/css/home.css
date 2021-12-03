@@ -1,0 +1,32 @@
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.title {
+  font-size: 8vw;
+  font-weight: bold;
+  margin: 16px;
+}
+
+.buttons {
+  width: 100%;
+  font-size: 3vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  color: darkgray;
+  margin-bottom: 8px;
+  text-decoration: none;
+}
+
+.button:hover {
+  color: black;
+  text-decoration: underline;
+}
