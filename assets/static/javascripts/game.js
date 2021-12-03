@@ -147,25 +147,33 @@ function reduceLife() {
         console.log(mistakes)
         livesDisplay.innerText = `Game Over! Accuracy: ${Math.max((((totalLetterCount - mistakes)/totalLetterCount) * 100), 0)}%`;
         currentLetters = [];
-        let formData = new FormData();
-        formData.append('score', `${score}`);
 
         // Display a button to go back to the home page
         const backForm = document.createElement('form');
-        backForm.setAttribute('action', `/${currentUser._id}`);
+        backForm.setAttribute('action', `user/${currentUser._id}`);
         backForm.setAttribute('method', 'post');
         const backButton = document.createElement('button');
         backButton.setAttribute('class', 'btn btn-primary');
         backButton.innerText = 'Back home';
-        const scoreInput = document.createElement('input');
-        scoreInput.setAttribute('type', 'hidden');
-        scoreInput.setAttribute('value', `${score}`);
-        scoreInput.setAttribute('name', 'score');
+        const scoreValue = document.createElement('input');
+        scoreValue.setAttribute('type', 'hidden');
+        scoreValue.setAttribute('value', `${score}`);
+        scoreValue.setAttribute('name', 'score');
+        const gameMode = document.createElement('input');
+        gameMode.setAttribute('type', 'hidden');
+        gameMode.setAttribute('value', `${mode}`);
+        gameMode.setAttribute('name', 'mode');
+        const poisonStatus = document.createElement('input');
+        poisonStatus.setAttribute('type', 'hidden');
+        poisonStatus.setAttribute('value', `${poison}`);
+        poisonStatus.setAttribute('name', 'poison');
 
-        backForm.append(scoreInput);
+        // Append all of the elements to the page
+        backForm.append(scoreValue);
+        backForm.append(gameMode);
+        backForm.append(poisonStatus);
         backForm.append(backButton);
         start.append(backForm);
-
     }
 }
 // Generate a new letter

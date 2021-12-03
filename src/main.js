@@ -14,6 +14,7 @@ const User = require('../assets/models/user');
 const ExpressError = require('../assets/error-handling/ExpressError');
 const { isLoggedIn } = require('../assets/middleware');
 const asyncWrapper = require('../assets/error-handling/asyncWrapper');
+const Leaderboard = require('../assets/models/leaderboard');
 
 // If not deployed to heroku, make environment variables accessible
 if (process.env.NODE_ENV !== 'production')
@@ -98,10 +99,62 @@ app.get('/settings', (req, res) =>
  // Get route for the leaderboard
 app.get('/leaderboard', asyncWrapper(async (req, res) =>
 {
-    const allUsers = await User.find({});
-    quickSortByScore(allUsers);
-    const topTenUsers = allUsers.slice(0, 9);
-    res.render('leaderboard', { topTenUsers });
+    let topTenNormal = [], topTenNormalPoison = [], topTenRandom = [], topTenRandomPoison = [];
+    const normalLeaderboard = await Leaderboard.findOne({ name: 'normal' }).populate(
+        {
+            path: 'usersAndScores',
+            populate:
+            {
+                path: 'user'
+            }
+        }
+    );
+    console.log(normalLeaderboard);
+    console.log(normalLeaderboard.usersAndScores);
+    if (normalLeaderboard.usersAndScores)
+    { 
+        topTenNormal = normalLeaderboard.usersAndScores.slice(0, 9);
+    }
+    const normalPoisonLeaderboard = await Leaderboard.find({ name: 'normalPoison' }).populate(
+        {
+            path: 'usersAndScores',
+            populate:
+            {
+                path: 'user'
+            }
+        }
+    );
+    if (normalPoisonLeaderboard.usersAndScores) 
+    { 
+        topTenNormalPoison = normalPoisonLeaderboard.usersAndScores.slice(0, 9);
+    }
+    const randomLeaderboard = await Leaderboard.find({ name: 'random' }).populate(
+        {
+            path: 'usersAndScores',
+            populate:
+            {
+                path: 'user'
+            }
+        }
+    );
+    if (randomLeaderboard.usersAndScores) 
+    { 
+        topTenRandom = randomLeaderboard.usersAndScores.slice(0, 9);
+    }
+    const randomPoisonLeaderboard = await Leaderboard.find({ name: 'randomPoison' }).populate(
+        {
+            path: 'usersAndScores',
+            populate:
+            {
+                path: 'user'
+            }
+        }
+    );
+    if (randomPoisonLeaderboard.usersAndScores)
+    { 
+        topTenRandomPoison = randomPoisonLeaderboard.usersAndScores.slice(0, 9);
+    }
+    res.render('leaderboard', { topTenNormal, topTenNormalPoison, topTenRandom, topTenRandomPoison });
 }));
 // Get route for all game modes
 app.get('/game', (req, res) =>

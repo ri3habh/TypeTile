@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Leaderboard = require('../models/leaderboard');
 
 // Render the registration form
 const renderRegForm = (req, res) =>
@@ -17,7 +18,32 @@ const register = async (req, res, next) =>
     {
         const { username, email, password } = req.body;
 
-        const user = new User({email, username, scores: [], highScore: 0});
+        const user = new User(
+            {
+                email,
+                username,
+                normalScores:
+                {
+                    scores: [],
+                    highScore: 0
+                },
+                normalPoisonScores:
+                {
+                    scores: [],
+                    highScore: 0
+                },
+                randomScores:
+                {
+                    scores: [],
+                    highScore: 0
+                },
+                randomPoisonScores:
+                {
+                    scores: [],
+                    highScore: 0
+                }
+            }
+        );
         // We have .register() from passport, will save the user to mongo using mongoose
         const registeredUser = await User.register(user, password);
         // We have .login() from passport, will insert the user into the session
@@ -52,14 +78,82 @@ const logout = (req, res) =>
 const updateUser = async (req, res) =>
 {
     const id = req.params.id;
-    const score = req.body.score;
+    const { score, mode, poison }  = req.body;
     const user = await User.findById(id);
-    console.log(score);
-    user.scores.push(req.body.score);
-    if (score > user.highScore)
+    if (mode === 'normal' && poison !== 'poison')
     {
-        user.highScore = score;
+        let leaderboard = await Leaderboard.find({ name: 'normal'});
+        if (!leaderboard.length)
+        {
+            leaderboard = new Leaderboard(
+            {
+                name: 'normal',
+                usersAndScores: []
+            });
+        }
+        leaderboard.usersAndScores.push({ user, score });
+        leaderboard.usersAndScores.sort((userScore1, userScore2) => (userScore1.score < userScore2.score ? 1 : -1));
+        await leaderboard.save();
+        if (score > user.normalScores.highScore)
+        {
+            user.normalScores.highScore = score;
+        }
+    } else if (mode === 'normal')
+    {
+        let leaderboard = await Leaderboard.find({ name: 'normalPoison'});
+        if (!leaderboard.length)
+        {
+            leaderboard = new Leaderboard(
+            {
+                name: 'normalPoison',
+                usersAndScores: []
+            });
+        }
+        leaderboard.usersAndScores.push({ user, score });
+        leaderboard.usersAndScores.sort((userScore1, userScore2) => (userScore1.score < userScore2.score ? 1 : -1));
+        await leaderboard.save();
+        if (score > user.normalPoisonScores.highScore)
+        {
+            user.normalPoisonScores.highScore = score;
+        }
+    } else if (mode === 'random' && poison !== 'poison')
+    {
+        let leaderboard = await Leaderboard.find({ name: 'random'});
+        if (!leaderboard.length)
+        {
+            leaderboard = new Leaderboard(
+            {
+                name: 'random',
+                usersAndScores: []
+            });
+        }
+        leaderboard.usersAndScores.push({ user, score });
+        leaderboard.usersAndScores.sort((userScore1, userScore2) => (userScore1.score < userScore2.score ? 1 : -1));
+        await leaderboard.save();
+        if (score > user.randomScores.highScore)
+        {
+            user.randomScores.highScore = score;
+        }
+    } else if (mode === 'random')
+    {
+        let leaderboard = await Leaderboard.find({ name: 'randomPoison'});
+        if (!leaderboard.length)
+        {
+            leaderboard = new Leaderboard(
+            {
+                name: 'randomPoison',
+                usersAndScores: []
+            });
+        }
+        leaderboard.usersAndScores.push({ user, score });
+        leaderboard.usersAndScores.sort((userScore1, userScore2) => (userScore1.score < userScore2.score ? 1 : -1));
+        await leaderboard.save();
+        if (score > user.randomPoisonScores.highScore)
+        {
+            user.randomPoisonScores.highScore = score;
+        }
     }
+    
     await user.save();
     req.flash('success', 'Successfully updated scores');
     res.redirect('/play');

@@ -15,7 +15,7 @@ router.route('/login')
     .get(renderLoginForm)
     .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), loginMessage);
 // CRUD routes
-router.route('/:id')
+router.route('/user/:id')
     .get(renderProfilePage)
     .post(isLoggedIn, asyncWrapper(updateUser));
 

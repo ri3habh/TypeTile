@@ -13,8 +13,26 @@ const UserSchema = new Schema(
             required: true,
             unique: true
         },
-        scores: [Number],
-        highScore: Number
+        normalScores:
+        {
+            scores: [Number],
+            highScore: Number
+        },
+        normalPoisonScores:
+        {
+            scores: [Number],
+            highScore: Number
+        },
+        randomScores:
+        {
+            scores: [Number],
+            highScore: Number
+        },
+        randomPoisonScores:
+        {
+            scores: [Number],
+            highScore: Number
+        }
     }
 );
 
