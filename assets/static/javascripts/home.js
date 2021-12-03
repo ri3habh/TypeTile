@@ -26,7 +26,7 @@ function generateNewLetter()
     p.style.position = "absolute";
     p.style.top = "50px";
     p.className = "letter";
-    p.style.left = `${200 + (Math.floor(Math.random() * 10) * 100)}px`;
+    p.style.left = `${Math.floor(Math.random() * 90) + 1}vw`;
 
     // Add the new letter to the screen and add it to the active letters array
     bg.append(p);
