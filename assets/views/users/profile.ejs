@@ -1,66 +1,70 @@
 <%-layout('/layouts/boilerplate')%>
 
-<div class="container">
-    <div class="row mt-3">
-        <h1>
-            <%=user.username%>
-        </h1>
-    </div>
-    <div class="row mb-3">
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    <h1>Normal Mode</h1>
+<div class="container mt-3">
+    <div class="card p-3">
+        <div class="card-body">
+            <div class="row mb-2">
+                <h1>
+                    <%=user.username%>
+                </h1>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>Normal Mode</h1>
+                        </div>
+                        <div class="card-body">
+                            <h3>High score: <%= user.normalScores.highScore %></h3>
+                        </div>
+                        <div class="card-footer">
+                            <canvas id="normalProgressionChart"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h3>High score: <%= user.normalScores.highScore %></h3>
-                </div>
-                <div class="card-footer">
-                    <canvas id="normalProgressionChart"></canvas>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>Normal Poison Mode</h1>
+                        </div>
+                        <div class="card-body">
+                            <h3>High score: <%= user.normalPoisonScores.highScore %>
+                            </h3>
+                        </div>
+                        <div class="card-footer">
+                            <canvas id="normalPoisonProgressionChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    <h1>Normal Poison Mode</h1>
+            <div class="row mb-3">
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>Random Mode</h1>
+                        </div>
+                        <div class="card-body">
+                            <h3>High score: <%= user.randomScores.highScore %>
+                            </h3>
+                        </div>
+                        <div class="card-footer">
+                            <canvas id="randomProgressionChart"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h3>High score: <%= user.normalPoisonScores.highScore %>
-                    </h3>
-                </div>
-                <div class="card-footer">
-                    <canvas id="normalPoisonProgressionChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    <h1>Random Mode</h1>
-                </div>
-                <div class="card-body">
-                    <h3>High score: <%= user.randomScores.highScore %>
-                    </h3>
-                </div>
-                <div class="card-footer">
-                    <canvas id="randomProgressionChart"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    <h1>Random Poison Mode</h1>
-                </div>
-                <div class="card-body">
-                    <h3>High score: <%= user.randomPoisonScores.highScore %>
-                    </h3>
-                </div>
-                <div class="card-footer">
-                    <canvas id="randomPoisonProgressionChart"></canvas>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>Random Poison Mode</h1>
+                        </div>
+                        <div class="card-body">
+                            <h3>High score: <%= user.randomPoisonScores.highScore %>
+                            </h3>
+                        </div>
+                        <div class="card-footer">
+                            <canvas id="randomPoisonProgressionChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
