@@ -153,7 +153,7 @@ function reduceLife() {
         backForm.setAttribute('action', `user/${currentUser._id}`);
         backForm.setAttribute('method', 'post');
         const backButton = document.createElement('button');
-        backButton.setAttribute('class', 'btn btn-primary');
+        backButton.setAttribute('class', 'p-2 btn btn-primary');
         backButton.innerText = 'Back home';
         const scoreValue = document.createElement('input');
         scoreValue.setAttribute('type', 'hidden');
