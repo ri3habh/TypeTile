@@ -87,7 +87,9 @@ main.container {
 }
 .roboto {
   font-family: "Roboto", sans-serif;
+  font-weight: 900;
 }
 .roboto-mono {
   font-family: "Roboto Mono", monospace;
+  font-weight: 900;
 }
