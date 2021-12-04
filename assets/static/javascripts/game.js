@@ -5,7 +5,7 @@ VARIABLES FOR GAMEPLAY STATS/FUNCTIONALITY
 let currentLetters = [];
 // Variables that'll increment throughout gameplay
 let score = 0;
-let speed = parseInt(startSpeed);
+let speed = parseInt(startSpeed) || 3;
 let lives = 3;
 let totalLetterCount = 0;
 let mistakes = 0;
@@ -180,8 +180,8 @@ function reduceLife() {
         backForm.append(curDate);
 
         backForm.style.position = 'absolute';
-        backForm.style.top = '400px';
-        backForm.style.left = '300px';
+        backForm.style.top = '300px';
+        backForm.style.left = '670px';
         start.append(backForm);
     }
 }
