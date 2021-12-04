@@ -145,7 +145,7 @@ function reduceLife() {
         clearInterval(nextSpeedInterval);
         console.log(totalLetterCount)
         console.log(mistakes)
-        livesDisplay.innerText = `Game Over! Accuracy: ${Math.max((((totalLetterCount - mistakes)/totalLetterCount) * 100), 0)}%`;
+        livesDisplay.innerText = `Game Over! Accuracy: ${Math.round(Math.max((((totalLetterCount - mistakes)/totalLetterCount) * 100), 0))}%`;
         currentLetters = [];
 
         // Display a button to go back to the home page
