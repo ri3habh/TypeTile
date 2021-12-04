@@ -94,7 +94,7 @@ const randomPoisonVanillaScores = [];
 for (score of randomPoisonScores)
 {
     randomPoisonLabels.push(moment(score.date).format('L'));
-    randomVPoisonanillaScores.push(score.score);
+    randomPoisonVanillaScores.push(score.score);
 }
 const randomPoisonData = {
   labels: randomPoisonLabels,
