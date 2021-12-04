@@ -1,2 +1,25 @@
 <% layout('layouts/boilerplate') %>
-<h1 class='mt-5'>Settings go here</h1>
+<link rel="stylesheet" href="/css/settings.css">
+<div class="container">
+    <h1>Settings</h1>
+    <form class="needs-validation-check" action="/settings" method="POST" novalidate>
+        <div class="mb-3">
+            <label class="form-label" for="initialSpeed">Initial Speed</label>
+            <input type="range" class="form-range" min="3" max="10" step="1" id="initialSpeed" name="initialSpeed" value="3"
+                required>
+            <div class="valid-feedback">
+                Good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" aria-label="Default select example" name="font">
+                <option selected>Choose your font</option>
+                <option class="roboto" value="roboto">Roboto</option>
+                <option class="roboto-mono" value="roboto-mono">Roboto Mono</option>
+                <option class="cursive" value="cursive">Cursive</option>
+                <option class="anton" value="anton">Anton</option>
+            </select>
+        </div>
+            <button class="btn btn-success">Save</button>
+    </form>
+</div>

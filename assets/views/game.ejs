@@ -8,9 +8,17 @@
 <%- include('./partials/keyboard-and-letterspace') %>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+    const startSpeed = '<%=initialSpeed%>';
+    const gameFont = '<%=font%>';
     const randSentences = <%-JSON.stringify(randSentences)%>;
     const mode = "<%-mode%>";
     const poison = "<%-poison%>";
     const currentUser = <%-JSON.stringify(currentUser)%>
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Luxurious+Script&family=Roboto+Mono:wght@200&display=swap" rel="stylesheet">
 <script src='/javascripts/game.js'></script>

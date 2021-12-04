@@ -79,3 +79,15 @@ main.container {
 .red-tile {
   color: red;
 }
+.anton {
+  font-family: "Anton", sans-serif;
+}
+.cursive {
+  font-family: "Luxurious Script", cursive;
+}
+.roboto {
+  font-family: "Roboto", sans-serif;
+}
+.roboto-mono {
+  font-family: "Roboto Mono", monospace;
+}

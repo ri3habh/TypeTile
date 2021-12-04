@@ -96,6 +96,15 @@ app.get('/settings', (req, res) =>
 {
     res.render('settings');
 });
+app.post('/settings', isLoggedIn, (req, res) =>
+{
+    const { font, initialSpeed } = req.body;
+    console.log(req.body);
+    req.session.initialSpeed = initialSpeed;
+    req.session.font = font;
+    req.flash('success', 'Settings saved');
+    res.redirect('/play');
+});
  // Get route for the leaderboard
 app.get('/leaderboard', asyncWrapper(async (req, res) =>
 {
@@ -158,7 +167,8 @@ app.get('/leaderboard', asyncWrapper(async (req, res) =>
 app.get('/game', (req, res) =>
 {
     const { mode, poison } = req.query;
-    res.render('game', { randSentences: generateRandomSentences(100), mode, poison });
+    const { font, initialSpeed } = req.session;
+    res.render('game', { randSentences: generateRandomSentences(100), mode, poison, font, initialSpeed });
 });
 // All user routes
 app.use('/', userRoutes);

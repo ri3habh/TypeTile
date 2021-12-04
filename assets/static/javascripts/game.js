@@ -5,7 +5,7 @@ VARIABLES FOR GAMEPLAY STATS/FUNCTIONALITY
 let currentLetters = [];
 // Variables that'll increment throughout gameplay
 let score = 0;
-let speed = 3;
+let speed = parseInt(startSpeed);
 let lives = 3;
 let totalLetterCount = 0;
 let mistakes = 0;
@@ -211,6 +211,20 @@ function generateNewLetter()
     p.innerText = letter;
     p.style.position = "absolute";
     p.style.top = "50px";
+    switch (gameFont)
+    {
+        case 'roboto':
+            p.classList.toggle('roboto');
+            break;
+        case 'roboto-mono':
+            p.classList.toggle('roboto-mono');
+            break;
+        case 'cursive':
+            p.classList.toggle('cursive');
+            break;
+        case 'anton':
+            p.classList.toggle('anton');
+    }
     if (chanceOfRed === 1)
     {
         p.classList.toggle('red-tile');
