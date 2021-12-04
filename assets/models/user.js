@@ -10,27 +10,46 @@ const UserSchema = new Schema(
         email:
         {
             type: String,
-            required: true,
-            unique: true
+            required: true
         },
         normalScores:
         {
-            scores: [Number],
+            scores: [
+                {
+                    score: Number,
+                    date: Number
+                }
+            ],
             highScore: Number
         },
         normalPoisonScores:
         {
-            scores: [Number],
+            scores: [
+                {
+                    score: Number,
+                    date: Number
+                }
+            ],
             highScore: Number
         },
         randomScores:
         {
-            scores: [Number],
+            scores: [
+                {
+                    score: Number,
+                    date: Number
+                }
+            ],
             highScore: Number
         },
         randomPoisonScores:
         {
-            scores: [Number],
+            scores: [
+                {
+                    score: Number,
+                    date: Number
+                }
+            ],
             highScore: Number
         }
     }

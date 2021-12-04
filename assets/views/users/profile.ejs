@@ -1,4 +1,77 @@
 <%-layout('/layouts/boilerplate')%>
-<h1><%=user.username%></h1>
-<p>Scores: </p>
-<p>Scores here:</p>
+
+<div class="container">
+    <div class="row mt-3">
+        <h1>
+            <%=user.username%>
+        </h1>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Normal Mode</h1>
+                </div>
+                <div class="card-body">
+                    <h3>High score: <%= user.normalScores.highScore %></h3>
+                </div>
+                <div class="card-footer">
+                    <canvas id="normalProgressionChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Normal Poison Mode</h1>
+                </div>
+                <div class="card-body">
+                    <h3>High score: <%= user.normalPoisonScores.highScore %>
+                    </h3>
+                </div>
+                <div class="card-footer">
+                    <canvas id="normalPoisonProgressionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Random Mode</h1>
+                </div>
+                <div class="card-body">
+                    <h3>High score: <%= user.randomScores.highScore %>
+                    </h3>
+                </div>
+                <div class="card-footer">
+                    <canvas id="randomProgressionChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Random Poison Mode</h1>
+                </div>
+                <div class="card-body">
+                    <h3>High score: <%= user.randomPoisonScores.highScore %>
+                    </h3>
+                </div>
+                <div class="card-footer">
+                    <canvas id="randomPoisonProgressionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const normalScores = <%- JSON.stringify(user.normalScores.scores) %>;
+    const normalPoisonScores = <%- JSON.stringify(user.normalPoisonScores.scores) %>;
+    const randomScores = <%- JSON.stringify(user.randomScores.scores) %>;
+    const randomPoisonScores = <%- JSON.stringify(user.randomPoisonScores.scores) %>;
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.js"></script>
+<script src="/javascripts/chart.js"></script>

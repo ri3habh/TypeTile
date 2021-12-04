@@ -109,13 +109,11 @@ app.get('/leaderboard', asyncWrapper(async (req, res) =>
             }
         }
     );
-    console.log(normalLeaderboard);
-    console.log(normalLeaderboard.usersAndScores);
-    if (normalLeaderboard.usersAndScores)
+    if (normalLeaderboard)
     { 
         topTenNormal = normalLeaderboard.usersAndScores.slice(0, 9);
     }
-    const normalPoisonLeaderboard = await Leaderboard.find({ name: 'normalPoison' }).populate(
+    const normalPoisonLeaderboard = await Leaderboard.findOne({ name: 'normalPoison' }).populate(
         {
             path: 'usersAndScores',
             populate:
@@ -124,11 +122,11 @@ app.get('/leaderboard', asyncWrapper(async (req, res) =>
             }
         }
     );
-    if (normalPoisonLeaderboard.usersAndScores) 
+    if (normalPoisonLeaderboard) 
     { 
         topTenNormalPoison = normalPoisonLeaderboard.usersAndScores.slice(0, 9);
     }
-    const randomLeaderboard = await Leaderboard.find({ name: 'random' }).populate(
+    const randomLeaderboard = await Leaderboard.findOne({ name: 'random' }).populate(
         {
             path: 'usersAndScores',
             populate:
@@ -137,11 +135,11 @@ app.get('/leaderboard', asyncWrapper(async (req, res) =>
             }
         }
     );
-    if (randomLeaderboard.usersAndScores) 
+    if (randomLeaderboard) 
     { 
         topTenRandom = randomLeaderboard.usersAndScores.slice(0, 9);
     }
-    const randomPoisonLeaderboard = await Leaderboard.find({ name: 'randomPoison' }).populate(
+    const randomPoisonLeaderboard = await Leaderboard.findOne({ name: 'randomPoison' }).populate(
         {
             path: 'usersAndScores',
             populate:
@@ -150,7 +148,7 @@ app.get('/leaderboard', asyncWrapper(async (req, res) =>
             }
         }
     );
-    if (randomPoisonLeaderboard.usersAndScores)
+    if (randomPoisonLeaderboard)
     { 
         topTenRandomPoison = randomPoisonLeaderboard.usersAndScores.slice(0, 9);
     }

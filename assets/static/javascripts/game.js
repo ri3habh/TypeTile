@@ -167,12 +167,21 @@ function reduceLife() {
         poisonStatus.setAttribute('type', 'hidden');
         poisonStatus.setAttribute('value', `${poison}`);
         poisonStatus.setAttribute('name', 'poison');
+        const curDate = document.createElement('input');
+        curDate.setAttribute('type', 'hidden');
+        curDate.setAttribute('value', `${Date.now()}`);
+        curDate.setAttribute('name', 'date');
 
         // Append all of the elements to the page
         backForm.append(scoreValue);
         backForm.append(gameMode);
         backForm.append(poisonStatus);
         backForm.append(backButton);
+        backForm.append(curDate);
+
+        backForm.style.position = 'absolute';
+        backForm.style.top = '400px';
+        backForm.style.left = '300px';
         start.append(backForm);
     }
 }
