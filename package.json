@@ -4,6 +4,7 @@
   "description": "Developers: Rishabh Ighoise Jacob Alston ...",
   "main": "index.js",
   "scripts": {
+    "start": "node src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
