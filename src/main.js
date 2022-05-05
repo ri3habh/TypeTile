@@ -70,10 +70,10 @@ mongoose
     console.log(e);
   });
 
-const port = process.env.port || 2000;
+const port = process.env.PORT || 2000;
 // Express is listening on port 2000
 app.listen(port, () => {
-  console.log("On port 2000");
+  console.log(`The port is ${port}`);
 });
 
 // Routes
